@@ -1,0 +1,17 @@
+#build
+docker build --rm -t local/neo4j .
+
+#run a container with systemd
+docker run --privileged -ti -v /sys/fs/cgroup/:/sys/fs/cgroup:ro -p 8080:80 local/c7-systemd-httpd
+
+#login to running container named neo4j
+docker exec -it neo4j /bin/bash
+
+#copy a file into a container named neo4j
+docker container cp file neo4j:/root/subdir
+
+#run a container and expose all ports
+docker run -d -P --name plex local/plex
+
+#find port mapping
+docker port plex 
